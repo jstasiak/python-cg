@@ -32,6 +32,7 @@ setup(
 	author='Jakub Stasiak',
 	author_email='jakub@stasiak.at',
 	package_dir=dict(cg='src'),
+	packages=['cg'],
 	cmdclass={'build_ext': build_ext},
 	ext_modules=extensions,
 	requires=[
