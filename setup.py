@@ -10,12 +10,15 @@ from os import environ
 
 from Cython.Distutils import build_ext
 
-extensions = [
-	Extension("cg.bridge", ["cg/bridge.pyx"]),
-]
-
 if platform.system() == 'Darwin':
-	environ['LDFLAGS'] = '-framework Cg'
+	environ['LDFLAGS']='-framework Cg'
+	libraries=[]
+else:
+	libraries=['Cg', 'CgGL', 'GL']
+	
+extensions = [
+	Extension("cg.bridge", ["src/bridge.pyx"], libraries=libraries),
+]
 
 setup(
 	name='python-cg',
@@ -23,7 +26,7 @@ setup(
 	description='Python wrapper for NVidia Cg Toolkit',
 	author='Jakub Stasiak',
 	author_email='jakub@stasiak.at',
-	packages=['cg'],
+	package_dir=dict(cg='src'),
 	cmdclass={'build_ext': build_ext},
 	ext_modules=extensions,
 	requires=[
