@@ -17,7 +17,11 @@ else:
 	libraries=['Cg', 'CgGL', 'GL']
 	
 extensions = [
-	Extension("cg.bridge", ["src/bridge.pyx"], libraries=libraries),
+	Extension(
+		"cg.bridge",
+		["src/bridge.pyx"],
+		libraries=libraries,
+	)
 ]
 
 setup(
