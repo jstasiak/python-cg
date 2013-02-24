@@ -21,6 +21,7 @@ extensions = [
 		"cg.bridge",
 		["src/bridge.pyx"],
 		libraries=libraries,
+		include_dirs=['src'],
 	)
 ]
 
