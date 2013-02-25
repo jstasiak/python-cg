@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 from abc import ABCMeta, abstractmethod
 
-WithABCMeta = ABCMeta('WithABCMeta', (object,), {})
+WithABCMeta = ABCMeta(str('WithABCMeta'), (object,), {})
 
 class Disposable(WithABCMeta):
 	'''
