@@ -27,11 +27,11 @@ class TestContextFactory(object):
 		bridge.cgGLRegisterStates.assert_called_once_with(handle)
 
 class TestContext(object):
-	def test_context_destroys_itself_when_deleted(self):
+	def test_context_disposes_of_its_resources(self):
 		handle = 234
 		bridge = Mock()
 
 		context = Context(handle, bridge)
-		del context
+		context.dispose()
 
 		bridge.cgDestroyContext.assert_called_once_with(handle)

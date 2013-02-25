@@ -3,13 +3,14 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 from cg import bridge as cbridge
 from cg.effect import Effect
+from cg.utils import Disposable
 
-class Context:
+class Context(Disposable):
 	def __init__(self, cgcontext, bridge):
 		self._cgcontext = cgcontext
 		self._bridge = bridge
 
-	def __del__(self):
+	def _dispose(self):
 		self._bridge.cgDestroyContext(self._cgcontext)
 
 	def create_effect_from_file(self, filename):
