@@ -38,5 +38,6 @@ setup(
 	requires=[
 		'cython',
 		'nose',
+		'mock',
 	],
 )
