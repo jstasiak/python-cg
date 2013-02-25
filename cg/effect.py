@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+from cg.utils import Disposable
 from cg.technique import Technique
 
-class Effect(object):
+class Effect(Disposable):
 	_techniques = None
 
 	def __init__(self, cgeffect, bridge):
@@ -21,3 +22,6 @@ class Effect(object):
 			self._techniques = tuple(techniques)
 
 		return self._techniques
+
+	def _dispose(self):
+		self._bridge.cgDestroyEffect(self._cgeffect)

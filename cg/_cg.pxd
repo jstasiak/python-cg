@@ -15,6 +15,7 @@ cdef extern from "Cg/cgGL.h" nogil:
 	const char* cgGetLastListing(CGcontext context)
 
 	CGeffect cgCreateEffectFromFile(CGcontext context, const char* filename, const char** args)
+	void cgDestroyEffect(CGeffect effect)
 
 	CGtechnique cgGetFirstTechnique(CGeffect effect)
 	CGtechnique cgGetNextTechnique(CGtechnique technique)

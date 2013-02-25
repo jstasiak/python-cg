@@ -52,6 +52,8 @@ def cgCreateEffectFromFile(CGcontext context, unicode filename):
 	filename_bytes = filename.encode('utf-8')
 	return _create_effect(_cg.cgCreateEffectFromFile(context.handle, filename_bytes, NULL))
 
+def cgDestroyEffect(CGeffect effect):
+	_cg.cgDestroyEffect(effect.handle)
 
 # Effect techniques
 
