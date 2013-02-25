@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
 
 import platform
 
@@ -19,9 +20,9 @@ else:
 extensions = [
 	Extension(
 		"cg.bridge",
-		["src/bridge.pyx"],
+		["cg/bridge.pyx"],
 		libraries=libraries,
-		include_dirs=['src'],
+		include_dirs=['cg'],
 	)
 ]
 
@@ -31,7 +32,6 @@ setup(
 	description='Python wrapper for NVidia Cg Toolkit',
 	author='Jakub Stasiak',
 	author_email='jakub@stasiak.at',
-	package_dir=dict(cg='src'),
 	packages=['cg'],
 	cmdclass={'build_ext': build_ext},
 	ext_modules=extensions,
