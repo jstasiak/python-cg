@@ -36,8 +36,8 @@ setup(
 	cmdclass={'build_ext': build_ext},
 	ext_modules=extensions,
 	requires=[
-		'cython',
-		'nose',
-		'mock',
+		'cython>=0.18',
+		'nose>=1.2',
+		'mock>=1.0',
 	],
 )
