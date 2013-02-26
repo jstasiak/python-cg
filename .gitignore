@@ -36,3 +36,5 @@ nosetests.xml
 
 # Cython-generated code
 *.c
+
+docs/_build
