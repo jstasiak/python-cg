@@ -18,15 +18,15 @@
 
 This project requires:
 
-* NVidia Cg Toolkit >= 3.0
-* Python 2.x >= 2.6, 3.x >= 3.2 or PyPy 1.9+ + development files
+* NVidia Cg Toolkit ≥ 3.0
+* Python 2.x ≥ 2.6, 3.x ≥ 3.2 or PyPy 1.9+ + development files
 * C and C++ compilers
 
 The following Python packages are also required:
 
-* Cython >= 0.18
-* Mock >= 1.0
-* Nose >= 1.2
+* Cython ≥ 0.18
+* Mock ≥ 1.0
+* Nose ≥ 1.2
 
 ## Building
 
