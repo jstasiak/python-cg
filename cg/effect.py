@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from cg.utils import Disposable
+from cg.utils import Disposable, gather
 from cg.technique import Technique
 
 class Effect(Disposable):
@@ -14,12 +14,10 @@ class Effect(Disposable):
 	@property
 	def techniques(self):
 		if self._techniques is None:
-			techniques = []
-			technique = self._bridge.cgGetFirstTechnique(self._cgeffect)
-			while technique:
-				techniques.append(Technique(technique, self._bridge))
-				technique = self._bridge.cgGetNextTechnique(technique)
-			self._techniques = tuple(techniques)
+			self._techniques = gather(
+				self._cgeffect,
+				self._bridge.cgGetFirstTechnique, self._bridge.cgGetNextTechnique
+			)
 
 		return self._techniques
 

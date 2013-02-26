@@ -11,13 +11,9 @@ class Technique(object):
 	@property
 	def passes(self):
 		if self._passes is None:
-			passes = []
-			pass_ = self._bridge.cgGetFirstPass(self._cgtechnique)
-			while pass_:
-				passes.append(Pass(pass_, self._bridge))
-				pass_ = self._bridge.cgGetNextPass(pass_)
+			self.passes = gather(
+				self._cgtechnique, self._bridge.cgGetFirstPass, self._bridge.getNextPass)
 
-			self._passes = tuple(passes)
 		return self._passes
 
 class Pass(object):
