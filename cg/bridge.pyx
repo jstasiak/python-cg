@@ -1,4 +1,5 @@
 cimport _cg
+cimport _cgGL
 
 # Contexts
 
@@ -32,7 +33,7 @@ def cgGetLastListing(CGcontext context):
 # OpenGL-specific
 
 def cgGLRegisterStates(CGcontext context):
-	_cg.cgGLRegisterStates(context.handle)
+	_cgGL.cgGLRegisterStates(context.handle)
 
 
 # Effects
