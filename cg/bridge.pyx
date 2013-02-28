@@ -23,12 +23,25 @@ def cgDestroyContext(CGcontext context):
 def cgIsContext(CGcontext context):
 	return _cg.cgIsContext(context.handle)
 
-def cgGetLastListing(CGcontext context):
-	cdef const char* listing = _cg.cgGetLastListing(context.handle)
-	if not listing:
+
+# Errors
+
+def u(const char* s):
+	if s == NULL or s is None:
 		return None
 	else:
-		return (<bytes>listing).decode('utf-8')
+		return (<bytes>s).decode('utf-8')
+
+def cgGetLastListing(CGcontext context):
+	cdef const char* listing = _cg.cgGetLastListing(context.handle)
+	return u(listing)
+
+def cgGetError():
+	return _cg.cgGetError()
+
+def cgGetErrorString(_cg.CGerror error):
+	cdef const char* description = _cg.cgGetErrorString(error)
+	return u(description)
 
 # OpenGL-specific
 
