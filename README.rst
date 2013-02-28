@@ -21,17 +21,21 @@ Why create this project?
 Requirements
 ------------
 
-This project requires:
+This project requires::
 
 * NVidia Cg Toolkit ≥ 3.0
 * Python 2.x ≥ 2.6, 3.x ≥ 3.2 or PyPy 1.9+ + development files
 * C and C++ compilers
 
-The following Python packages are also required:
+Python packages required to build and install *python-cg*::
 
 * Cython ≥ 0.18
+
+To build documentation/run tests you also need::
+
 * Mock ≥ 1.0
 * Nose ≥ 1.2
+* Sphinx ~ 1.2 (development version)
 
 Building
 --------
@@ -40,18 +44,19 @@ To build the project in place, run::
 
    python setup.py build_ext --inplace
 
-To test the project (it does the build automatically before running the tests), run::
+Testing
+-------
+
+To run tests, execute::
 
    python runtests.py
 
 Building the documentation
 --------------------------
 
-First of all you need not-yet-released Sphinx 1.2::
+To build the documentation, call::
 
-   pip install https://bitbucket.org/birkenfeld/sphinx/get/default.tar.gz
-
-Then you may actually build the documentation
+   python builddocs.py
 
 Example usage
 -------------

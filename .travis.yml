@@ -10,5 +10,5 @@ install:
     - sudo sh -c "echo 'deb http://archive.ubuntu.com/ubuntu/ precise-updates multiverse' >> /etc/apt/sources.list"
     - sudo apt-get update -qq
     - sudo apt-get install -qq nvidia-cg-toolkit libgl1-mesa-dev
-    - pip install cython
+    - pip install --upgrade -r requirements-dev.txt
 script: python runtests.py

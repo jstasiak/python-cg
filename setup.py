@@ -37,7 +37,5 @@ setup(
 	ext_modules=extensions,
 	requires=[
 		'cython (>= 0.18)',
-		'nose (>= 1.2)',
-		'mock (>= 1.0)',
 	],
 )

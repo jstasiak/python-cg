@@ -1,0 +1,4 @@
+cython>=0.18
+mock>=1.0
+nose>=1.2
+https://bitbucket.org/birkenfeld/sphinx/get/default.tar.gz

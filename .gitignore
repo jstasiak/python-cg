@@ -38,3 +38,6 @@ nosetests.xml
 *.c
 
 docs/_build
+
+#virtualenv
+env/
