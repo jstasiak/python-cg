@@ -21,17 +21,17 @@ Why create this project?
 Requirements
 ------------
 
-This project requires::
+This project requires:
 
 * NVidia Cg Toolkit ≥ 3.0
 * Python 2.x ≥ 2.6, 3.x ≥ 3.2 or PyPy 1.9+ + development files
 * C and C++ compilers
 
-Python packages required to build and install *python-cg*::
+Python packages required to build and install *python-cg*:
 
 * Cython ≥ 0.18
 
-To build documentation/run tests you also need::
+To build documentation/run tests you also need:
 
 * Mock ≥ 1.0
 * Nose ≥ 1.2
