@@ -14,9 +14,11 @@ class Effect(Disposable):
 	@property
 	def techniques(self):
 		if self._techniques is None:
-			self._techniques = gather(
-				self._cgeffect,
-				self._bridge.cgGetFirstTechnique, self._bridge.cgGetNextTechnique
+			self._techniques = tuple(
+				Technique(cg_technique, self._bridge) for cg_technique in gather(
+					self._cgeffect,
+					self._bridge.cgGetFirstTechnique, self._bridge.cgGetNextTechnique
+				)
 			)
 
 		return self._techniques

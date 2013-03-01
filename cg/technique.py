@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+from cg.utils import gather
+
 class Technique(object):
 	_passes = None
 
@@ -11,8 +13,8 @@ class Technique(object):
 	@property
 	def passes(self):
 		if self._passes is None:
-			self.passes = gather(
-				self._cgtechnique, self._bridge.cgGetFirstPass, self._bridge.getNextPass)
+			self._passes = tuple(Pass(cg_pass, self._bridge) for cg_pass in gather(
+				self._cgtechnique, self._bridge.cgGetFirstPass, self._bridge.cgGetNextPass))
 
 		return self._passes
 
