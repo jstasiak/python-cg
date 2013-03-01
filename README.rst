@@ -71,7 +71,8 @@ it requires (in addition to *python-cg* requirements):
 
 Then to run the example::
 
-   python example/main.py
+   python setup.py build_ext --inplace
+   PYTHONPATH=. python example/main.py
 
 License
 -------
