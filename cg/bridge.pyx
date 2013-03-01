@@ -26,8 +26,8 @@ def cgIsContext(CGcontext context):
 
 # Errors
 
-def u(const char* s):
-	if s == NULL or s is None:
+cdef u(const char* s):
+	if s == NULL:
 		return None
 	else:
 		return (<bytes>s).decode('utf-8')
