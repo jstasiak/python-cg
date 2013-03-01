@@ -1,0 +1,21 @@
+struct app2vp {
+	float4 position: POSITION;
+};
+
+struct vp2fp {
+	float4 position: POSITION;
+	float4 color: COLOR;
+};
+
+vp2fp vp(app2vp input) {
+	vp2fp output;
+	output.position = input.position;
+	output.color = float4(0.5, 0.5, 0.5, 1.0) + input.position;
+	return output;
+};
+
+technique t0 {
+	pass p0 {
+		VertexProgram = compile arbvp1 vp();
+	}
+}

@@ -61,24 +61,17 @@ To build the documentation, call::
 Example usage
 -------------
 
-.. code-block:: python
+You can find example application using *python-cg* in ``example`` directory. Please note that
+it requires (in addition to *python-cg* requirements):
 
-   # Initialization
-   from cg import ContextFactory
+* Development version of SFML 2
+* Python packages listed in ``example/requirements.txt``::
 
-   context_factory = ContextFactory()
-   context = context_factory.create()
+   pip install -r example/requirements.txt
 
-   effect = context.create_effect_from_file('simple.cgfx')
-   technique = effect.techniques[0]
+Then to run the example::
 
-
-   # Rendering loop
-
-   for pass_ in technique.passes:
-      pass_.begin()
-      # ... do actual rendering here
-      pass_.end()
+   python example/main.py
 
 License
 -------
