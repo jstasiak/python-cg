@@ -9,7 +9,7 @@ from subprocess import check_call
 def main():
 	check_call([sys.executable, 'setup.py', 'build_ext', '--inplace'])
 	sphinx_build = join(dirname(sys.executable), 'sphinx-build')
-	check_call([sphinx_build, '-b', 'html', 'docs', join('docs', '_build', 'html')])
+	check_call([sphinx_build, '-b', 'html', 'docs', join('gh-pages', 'html')])
 
 if __name__ == '__main__':
 	main()

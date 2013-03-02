@@ -58,6 +58,8 @@ To build the documentation, call::
 
    python builddocs.py
 
+Generated HTML files are placed in ``gh-pages/html`` directory.
+
 Example usage
 -------------
 

@@ -39,5 +39,8 @@ nosetests.xml
 
 docs/_build
 
-#virtualenv
+# virtualenv
 env/
+
+# Generated documentation
+gh-pages/
