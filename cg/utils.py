@@ -2,6 +2,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from abc import ABCMeta, abstractmethod
+from functools import wraps
 
 WithABCMeta = ABCMeta(str('WithABCMeta'), (object,), {})
 
@@ -14,16 +15,21 @@ class Disposable(WithABCMeta):
 
 	def dispose(self):
 		'''
-		Disposes of resources that are owned by the object. This method is idempotent.
+		Disposes of resources that are owned by the object.
+		
+		.. note:: This method is idempotent.
 		'''
 		if not self._disposed:
-			self._dispose()
+			self.perform_dispose()
 			self._disposed = True
 
 	@abstractmethod
-	def _dispose(self):
+	def perform_dispose(self):
 		'''
-		Performs actual disposing, needs to be overridden by subclasses.
+		Performs actual disposing, needs to be overridden by a subclass.
+
+		.. note:: This method is not supposed to be called directly by the user code. Please
+			use :py:meth:`dispose` instead.
 		'''
 
 	def __del__(self):

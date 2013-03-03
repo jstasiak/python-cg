@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from cg import bridge as cbridge
 from cg.effect import Effect
 from cg.utils import Disposable
 
 class Context(Disposable):
+	'''
+	Wraps CG Toolkit Context.
+	'''
+
 	def __init__(self, cgcontext, bridge):
 		self._cgcontext = cgcontext
 		self._bridge = bridge
 
-	def _dispose(self):
+	def perform_dispose(self):
 		self._bridge.cgDestroyContext(self._cgcontext)
 
 	def create_effect_from_file(self, filename):
@@ -22,11 +25,8 @@ class Context(Disposable):
 
 
 class ContextFactory(object):
-	def __init__(self, bridge=None):
-		if bridge is not None:
-			self._bridge = bridge
-		else:
-			self._bridge = cbridge
+	def __init__(self, bridge):
+		self._bridge = bridge
 
 	def create(self):
 		cgcontext = self._bridge.cgCreateContext()

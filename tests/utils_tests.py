@@ -11,7 +11,7 @@ class TestDisposable(object):
 		class TestClass(Disposable):
 			counter = 0
 
-			def _dispose(self):
+			def perform_dispose(self):
 				self.counter += 1
 
 		self.TestClass = TestClass

@@ -5,8 +5,7 @@ from os.path import abspath, dirname, join
 from time import time
 
 import sfml
-from cg import ContextFactory
-from cg.bridge import cgIsContext
+from cg import CG
 from OpenGL import GL as gl
 
 ROOT = abspath(dirname(__file__))
@@ -28,6 +27,7 @@ class App(object):
 			self.window.display()
 
 		cg_context.dispose()
+		self.cg.dispose()
 		self.window.close()
 
 	def render(self):
@@ -51,8 +51,8 @@ class App(object):
 		return window
 
 	def create_cg_context(self):
-		cf = ContextFactory()
-		return cf.create()
+		self.cg = CG()
+		return self.cg.create_context()
 
 	def process_events(self):
 		for event in self.window.iter_events():

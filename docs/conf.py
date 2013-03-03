@@ -12,7 +12,9 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import os
+import re
+import sys
 
 from os.path import abspath, dirname, join
 
@@ -249,3 +251,18 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+
+
+def setup(app):
+  app.connect('autodoc-process-docstring', process_docstring)
+  app.connect('autodoc-skip-member', skip_member)
+
+def process_docstring(app, what, name, obj, options, lines):
+  joined = '\n'.join(lines)
+  joined = re.sub(r' {8}', ' ' * 4, joined)
+  joined = joined.strip()
+  lines[:] = joined.splitlines()
+
+def skip_member(app, what, name, obj, skip, options):
+  return skip or getattr(obj, '__doc__', None) is None
