@@ -30,8 +30,8 @@ This project requires:
 * Python interpreter (+ development files):
   
   * 2.x ≥ 2.6, or
-  * 3.x ≥ 3.2 or
-  * PyPy 1.9+
+  * 3.x ≥ 3.2
+
 * C and C++ compiler
 
 Python packages required to build and install *python-cg*:
