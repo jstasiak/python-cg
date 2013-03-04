@@ -5,18 +5,21 @@ python-cg
    :alt: Build status
    :target: https://travis-ci.org/jstasiak/python-cg
 
-What is it?
------------
+What is python-cg?
+------------------
 
-*python-cg* is a Python wrapper for `NVidia Cg Toolkit <https://developer.nvidia.com/cg-toolkit>`_ runtime.
+*python-cg* is a Python wrapper for `NVidia Cg Toolkit <https://developer.nvidia.com/cg-toolkit>`_ runtime. I've started it because I like Python, I like NVidia CG and I want to to do some
+computer game/3d graphics prototyping and research. Also I still find C++ counterproductive
+as far as my needs are concerned and I don't want to waste my time doing boring stuff.
+Programming in Python is fun.
 
-Why create this project?
-------------------------
+I know about some projects that were meant to bring CG to Python but as far as I know they're
+history now.
 
-* I like Cg
-* I like Python
-* I'm interested in computer games and 3D graphics
-* It's fun
+What's the state?
+-----------------
+
+The project is in very early development stage.
 
 Requirements
 ------------
@@ -24,8 +27,12 @@ Requirements
 This project requires:
 
 * NVidia Cg Toolkit ≥ 3.0
-* Python 2.x ≥ 2.6, 3.x ≥ 3.2 or PyPy 1.9+ + development files
-* C and C++ compilers
+* Python interpreter (+ development files):
+  
+  * 2.x ≥ 2.6, or
+  * 3.x ≥ 3.2 or
+  * PyPy 1.9+
+* C and C++ compiler
 
 Python packages required to build and install *python-cg*:
 
@@ -38,6 +45,19 @@ To build documentation/run tests you also need:
 * Nose ≥ 1.2
 * Sphinx ~ 1.2 (development version)
 
+
+Documentation
+-------------
+
+Pregenerated documentation can be found at http://stasiak.at/python-cg.
+
+You can also build documentation all by yourself by calling::
+
+   python builddocs.py
+
+Generated HTML files are placed in ``gh-pages/html`` directory.
+
+
 Building
 --------
 
@@ -45,26 +65,63 @@ To build the project in place, run::
 
    python setup.py build_ext --inplace
 
-Testing
--------
+Quickstart
+----------
 
-To run tests, execute::
+First you need to create an instance of
+`CG <http://stasiak.at/python-cg/cg.html#cg.__init__.CG>`_ class and use it to create new
+`Context <http://stasiak.at/python-cg/cg.html#cg.context.Context>`_::
 
-   python runtests.py
+   from cg import CG
 
-Building the documentation
---------------------------
+   cg = CG()
+   context = cg.create_context()
 
-To build the documentation, call::
+We want to use an effect to render some stuff so we're gonna create
+`Effect <http://stasiak.at/python-cg/cg.effect.html#cg.effect.Effect>`_ from file::
 
-   python builddocs.py
+   effect = context.create_effect_from_file('effect.cgfx')
 
-Generated HTML files are placed in ``gh-pages/html`` directory.
+.. note:: This assumes that you have a file named ``effect.cgfx`` and that it contains
+   a valid CG effect.
 
-Example usage
--------------
+We now have access to Effect's techniques and parameters::
 
-You can find example application using *python-cg* in ``example`` directory. Please note that
+   for technique in effect.techniques:
+      # ...
+
+   for parameter in effect.parameters:
+      # ...
+
+
+For the sake of simplicity let's say we have a parameterless effect with only one
+`Technique <http://stasiak.at/python-cg/cg.effect.html#cg.effect.technique.Technique>`_::
+
+   technique = effect.techniques[0]
+
+Now we can access technique's passes. Each `Pass
+<http://stasiak.at/python-cg/cg.effect.html#cg.effect.pass_.Pass>`_ has methods `begin()
+<http://stasiak.at/python-cg/cg.effect.html#cg.effect.pass_.Pass.begin>`_ and `end()
+<http://stasiak.at/python-cg/cg.effect.html#cg.effect.pass_.Pass.end>`_ and the actual
+drawing has to take place between a call to ``begin`` and ``end``::
+
+   gl.glClear(gl.GL_COLOR_BUFFER_BIT)
+
+   for pass_  in technique.passes:
+      pass_.begin()
+
+
+      gl.glBegin(gl.GL_TRIANGLES)
+      gl.glVertex3f(-0.5, -0.5, 0)
+      gl.glVertex3f(0.5, -0.5, 0)
+      gl.glVertex3f(0, 0.5, 0)
+      gl.glEnd()
+
+      pass_.end()
+
+   # swap buffers
+
+You can find complete, runnable example application in ``example`` directory. Please note that
 it requires (in addition to *python-cg* requirements):
 
 * Development version of SFML 2
@@ -76,6 +133,15 @@ Then to run the example::
 
    python setup.py build_ext --inplace
    PYTHONPATH=. python example/main.py
+
+
+Testing
+-------
+
+To run tests, execute::
+
+   python runtests.py
+
 
 License
 -------
