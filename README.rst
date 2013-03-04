@@ -30,6 +30,7 @@ This project requires:
 Python packages required to build and install *python-cg*:
 
 * Cython ≥ 0.18
+* numpy
 
 To build documentation/run tests you also need:
 

@@ -1,5 +1,7 @@
 cimport _cg
 cimport _cgGL
+cimport numpy
+import numpy
 
 # Contexts
 
@@ -116,3 +118,30 @@ def cgSetPassState(CGpass pass_):
 
 def cgResetPassState(CGpass pass_):
 	_cg.cgResetPassState(pass_.handle)
+
+
+# Effect/program parameters
+cdef class CGparameter:
+	cdef _cg.CGparameter handle
+
+cdef _create_parameter(_cg.CGparameter handle):
+	if not handle:
+		return None
+
+	parameter = CGparameter()
+	parameter.handle = handle
+	return parameter
+
+def cgGetFirstEffectParameter(CGeffect effect):
+	return _create_parameter(_cg.cgGetFirstEffectParameter(effect.handle))
+
+def cgGetNextParameter(CGparameter parameter):
+	return _create_parameter(_cg.cgGetNextParameter(parameter.handle))
+
+def cgGetParameterName(CGparameter parameter):
+	return u(_cg.cgGetParameterName(parameter.handle))
+
+
+def cgSetParameterValuefc(CGparameter parameter, int nelements,
+		numpy.ndarray[numpy.float32_t, ndim=1] v):
+	_cg.cgSetParameterValuefc(parameter.handle, nelements, <float*>v.data)

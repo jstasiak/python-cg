@@ -8,7 +8,7 @@ from distutils.core import setup
 from distutils.extension import Extension
 from os import environ
 
-
+import numpy
 from Cython.Distutils import build_ext
 
 if platform.system() == 'Darwin':
@@ -38,4 +38,5 @@ setup(
 	requires=[
 		'cython (>= 0.18)',
 	],
+	include_dirs=[numpy.get_include()]
 )
