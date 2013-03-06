@@ -65,7 +65,7 @@ cdef _create_effect(_cg.CGeffect handle):
 	return effect
 
 def cgCreateEffectFromFile(CGcontext context, unicode filename):
-	filename_bytes = filename.encode('utf-8')
+	cdef bytes filename_bytes = filename.encode('utf-8')
 	return _create_effect(_cg.cgCreateEffectFromFile(context.handle, filename_bytes, NULL))
 
 def cgDestroyEffect(CGeffect effect):
@@ -120,6 +120,11 @@ def cgResetPassState(CGpass pass_):
 	_cg.cgResetPassState(pass_.handle)
 
 
+
+def cgGetTypeString(_cg.CGtype type):
+	return u(_cg.cgGetTypeString(type))
+
+
 # Effect/program parameters
 cdef class CGparameter:
 	cdef _cg.CGparameter handle
@@ -141,7 +146,27 @@ def cgGetNextParameter(CGparameter parameter):
 def cgGetParameterName(CGparameter parameter):
 	return u(_cg.cgGetParameterName(parameter.handle))
 
+def cgGetParameterBaseType(CGparameter parameter):
+	return _cg.cgGetParameterBaseType(parameter.handle)
+
+def cgGetParameterType(CGparameter parameter):
+	return _cg.cgGetParameterType(parameter.handle)
+
+def cgGetParameterRows(CGparameter parameter):
+	return _cg.cgGetParameterRows(parameter.handle)
+
+def cgGetParameterColumns(CGparameter parameter):
+	return _cg.cgGetParameterColumns(parameter.handle)
+
+
+def cgSetParameterValueic(CGparameter parameter, int nelements,
+		numpy.ndarray[numpy.int32_t, ndim=1] v):
+	_cg.cgSetParameterValueic(parameter.handle, nelements, <int*>v.data)
 
 def cgSetParameterValuefc(CGparameter parameter, int nelements,
 		numpy.ndarray[numpy.float32_t, ndim=1] v):
 	_cg.cgSetParameterValuefc(parameter.handle, nelements, <float*>v.data)
+
+def cgSetParameterValuecc(CGparameter parameter, int nelements,
+		numpy.ndarray[numpy.float64_t, ndim=1] v):
+	_cg.cgSetParameterValuedc(parameter.handle, nelements, <double*>v.data)

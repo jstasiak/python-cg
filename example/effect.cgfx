@@ -1,4 +1,6 @@
 float time: TIME;
+float4 f4;
+float4x4[3] f44;
 
 struct app2vp {
 	float4 position: POSITION;

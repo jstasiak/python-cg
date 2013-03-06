@@ -28,6 +28,14 @@ class EffectParameterFactory(object):
 
 	def create_parameter_by_cgparameter(self, cgparameter):
 		name = self._bridge.cgGetParameterName(cgparameter)
+		type = self._bridge.cgGetParameterType(cgparameter)
+		base_type = self._bridge.cgGetParameterBaseType(cgparameter)
+
+		type_string = self._bridge.cgGetTypeString(type)
+		base_type_string = self._bridge.cgGetTypeString(base_type)
+
+		rows = self._bridge.cgGetParameterRows(cgparameter)
+		columns = self._bridge.cgGetParameterColumns(cgparameter)
 
 		return Parameter(bridge=self._bridge, cgparameter=cgparameter, name=name)
 
