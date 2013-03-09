@@ -19,7 +19,7 @@ class App(object):
 		
 		effect = cg_context.create_effect_from_file(join(ROOT, 'effect.cgfx'))
 		self.technique = effect.techniques[0]
-		self.time_parameter = effect.parameters[0]
+		self.time_parameter = effect.parameters.by_name['time']
 
 		self.running = True
 		while self.running:

@@ -78,3 +78,14 @@ def autoassign(function):
 			setattr(self, key, value)
 		return function(self, **kwargs)
 	return wrapper
+
+class ReprMixin(object):
+	repr_members = ()
+
+	@nativerepr
+	def __repr__(self):
+		components = ((member, getattr(self, member)) for member in self.repr_members)
+		return '%s(%s)' % (
+			self.__class__.__name__,
+			', '.join('%s=%r' % kv for kv in components)
+		)

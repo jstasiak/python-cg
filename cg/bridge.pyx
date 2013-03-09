@@ -158,6 +158,8 @@ def cgGetParameterRows(CGparameter parameter):
 def cgGetParameterColumns(CGparameter parameter):
 	return _cg.cgGetParameterColumns(parameter.handle)
 
+def cgGetParameterSemantic(CGparameter parameter):
+	return u(_cg.cgGetParameterSemantic(parameter.handle))
 
 def cgSetParameterValueic(CGparameter parameter, int nelements,
 		numpy.ndarray[numpy.int32_t, ndim=1] v):
