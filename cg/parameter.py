@@ -33,14 +33,19 @@ class Parameter(ReprMixin):
 		#: Gets parameter semantic
 		self.semantic = semantic
 
-	def set_value_fc(self, data):
+	def set_value(self, data):
 		self._bridge.cgSetParameterValuefc(self._cgparameter, len(data), data)
 
 class ParameterCollection(tuple):
+	'''
+	Collection of :py:class:`cg.parameter.Parameter`. Provides tuple interface (iteration,
+	indexing etc.) and some parameter-specific extensions.
+	'''
+
 	@property
 	def by_semantic(self):
 		'''
-		Returns parameter dictionary indexed by semantic. Only parameters with
+		Gets parameter dictionary indexed by semantic. Only parameters with
 		non-empty semantic are included.
 		'''
 		return dict((p.semantic, p) for p in self if p.semantic)
@@ -48,7 +53,7 @@ class ParameterCollection(tuple):
 	@property
 	def by_name(self):
 		'''
-		Returns parameter dictionary indexed by names.
+		Gets parameter dictionary indexed by names.
 		'''
 		return dict((p.name, p) for p in self)
 

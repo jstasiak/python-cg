@@ -21,6 +21,8 @@ class App(object):
 		self.technique = effect.techniques[0]
 		self.time_parameter = effect.parameters.by_name['time']
 
+		import pprint; pprint.pprint(effect.parameters.by_name)
+
 		self.running = True
 		while self.running:
 			self.process_events()

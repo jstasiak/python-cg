@@ -37,7 +37,7 @@ class Effect(Disposable):
 	@property
 	def parameters(self):
 		'''
-		Gets effect parameters as a tuple of :py:class:`cg.effect.parameter.Parameter`.
+		Gets effect parameters as a :py:class:`cg.parameter.ParameterCollection`.
 		'''
 		if self._parameters is None:
 			self._parameters = self._parameter_factory.get_by_cgeffect(self._cgeffect)
