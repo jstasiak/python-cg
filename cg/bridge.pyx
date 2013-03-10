@@ -91,7 +91,10 @@ def cgGetNextTechnique(CGtechnique technique):
 	return _create_technique(_cg.cgGetNextTechnique(technique.handle))
 
 def cgValidateTechnique(CGtechnique technique):
-	return _cg.cgValidateTechnique(technique.handle)
+	return bool(_cg.cgValidateTechnique(technique.handle))
+
+def cgGetTechniqueName(CGtechnique technique):
+	return u(_cg.cgGetTechniqueName(technique.handle))
 
 
 # Effect passes

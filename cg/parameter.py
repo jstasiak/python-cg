@@ -28,7 +28,7 @@ class Parameter(ReprMixin):
 	Effect or program parameter base class.
 	'''
 
-	repr_members = ('name', 'semantic', 'type', 'base_type', 'row_count', 'column_count')
+	repr_members = ('name', 'semantic', 'type', 'base_type', 'row_count', 'column_count',)
 
 	def __init__(self, bridge, cgparameter, name, semantic,
 			type, base_type, row_count, column_count):

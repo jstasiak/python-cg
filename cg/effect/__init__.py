@@ -2,7 +2,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from cg.parameter import EffectParameterFactory
-from cg.effect.technique import Technique
+from cg.effect.technique import EffectTechniqueFactory
 from cg.utils import Disposable, gather
 
 class Effect(Disposable):
@@ -13,10 +13,11 @@ class Effect(Disposable):
 	_parameters = None
 	_techniques = None
 
-	def __init__(self, cgeffect, bridge, parameter_factory=None):
+	def __init__(self, cgeffect, bridge, parameter_factory=None, technique_factory=None):
 		self._cgeffect = cgeffect
 		self._bridge = bridge
 		self._parameter_factory = parameter_factory or EffectParameterFactory(self._bridge)
+		self._technique_factory = technique_factory or EffectTechniqueFactory(self._bridge)
 
 	@property
 	def techniques(self):
@@ -25,12 +26,7 @@ class Effect(Disposable):
 		:py:class:`cg.effect.technique.Technique`.
 		'''
 		if self._techniques is None:
-			self._techniques = tuple(
-				Technique(cg_technique, self._bridge) for cg_technique in gather(
-					self._cgeffect,
-					self._bridge.cgGetFirstTechnique, self._bridge.cgGetNextTechnique
-				)
-			)
+			self._techniques = self._technique_factory.get_by_cgeffect(self._cgeffect)
 
 		return self._techniques
 

@@ -18,9 +18,15 @@ class App(object):
 		cg_context = self.create_cg_context()
 		
 		effect = cg_context.create_effect_from_file(join(ROOT, 'effect.cgfx'))
-		self.technique = effect.techniques[0]
 		self.time_parameter = effect.parameters.by_name['time']
 
+		valid_techniques = [t for t in effect.techniques if t.valid]
+		assert valid_techniques
+		self.technique = valid_techniques[0]
+
+		print('techniques:')
+		import pprint; pprint.pprint(effect.techniques.by_name)
+		print('parameters:')
 		import pprint; pprint.pprint(effect.parameters.by_name)
 
 		self.running = True
