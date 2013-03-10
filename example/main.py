@@ -36,7 +36,7 @@ class App(object):
 		self.window.close()
 
 	def render(self):
-		self.time_parameter.set_value_fc(array([clock()]).astype(float32))
+		self.time_parameter.set_value(clock())
 
 		for pass_ in self.technique.passes:
 			pass_.begin()

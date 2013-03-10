@@ -1,10 +1,11 @@
 float time: TIME;
 float4 f4;
-float4x4[3] f44;
 double d;
 int i;
 bool b;
-int[3] ai;
+half h;
+float4x4 fm44;
+float4x4[3] fm44x3;
 
 struct app2vp {
 	float4 position: POSITION;
