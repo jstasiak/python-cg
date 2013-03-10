@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from cg.effect import Effect
+from cg.effect.effect import Effect
 from cg.utils import Disposable
 
 class Context(Disposable):
