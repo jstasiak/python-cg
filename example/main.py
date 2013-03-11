@@ -4,8 +4,10 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 from os.path import abspath, dirname, join
 from time import clock
 
+import Image
 import sfml
-from numpy import array, float32
+
+from numpy import array, float32, uint8
 from OpenGL import GL as gl
 
 from cg import CG
@@ -18,6 +20,8 @@ class App(object):
 		cg_context = self.create_cg_context()
 		
 		effect = cg_context.create_effect_from_file(join(ROOT, 'effect.cgfx'))
+		self.load_texture(join(ROOT, 'texture.png'),
+			effect.parameters.by_name['texture'])
 		self.time_parameter = effect.parameters.by_name['time']
 
 		valid_techniques = [t for t in effect.techniques if t.valid]
@@ -41,8 +45,27 @@ class App(object):
 		self.cg.dispose()
 		self.window.close()
 
+	def load_texture(self, filename, parameter):
+		image = Image.open(filename)
+
+		data = image.tostring('raw', 'RGB', 0, -1)
+
+		gl.glPixelStorei(gl.GL_UNPACK_ALIGNMENT, 1)
+
+		to = gl.glGenTextures(1)
+		gl.glBindTexture(gl.GL_TEXTURE_2D, to)
+		parameter.set_value(to)
+		gl.glTexImage2D(gl.GL_TEXTURE_2D, 0, gl.GL_RGB,
+			image.size[0], image.size[1], 0, gl.GL_RGB, gl.GL_UNSIGNED_BYTE, data)
+
 	def render(self):
 		self.time_parameter.set_value(clock())
+
+		data = (
+			((-0.5, -0.5, 0), (0.0, 0.0)),
+			((0.5, -0.5, 0), (1.0, 0.0)),
+			((0, 0.5, 0), (0.5, 1.0)),
+		)
 
 		for pass_ in self.technique.passes:
 			pass_.begin()
@@ -51,9 +74,11 @@ class App(object):
 			gl.glLoadIdentity()
 
 			gl.glBegin(gl.GL_TRIANGLES)
-			gl.glVertex3f(-0.5, -0.5, 0)
-			gl.glVertex3f(0.5, -0.5, 0)
-			gl.glVertex3f(0, 0.5, 0)
+
+			for position, texcoord in data:
+				gl.glMultiTexCoord2fv(gl.GL_TEXTURE0, texcoord)
+				gl.glVertex3fv(position)
+
 			gl.glEnd()
 
 			pass_.end()

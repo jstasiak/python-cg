@@ -50,6 +50,12 @@ def cgGetErrorString(_cg.CGerror error):
 def cgGLRegisterStates(CGcontext context):
 	_cgGL.cgGLRegisterStates(context.handle)
 
+def cgGLSetTextureParameter(CGparameter parameter, unsigned int texture):
+	_cgGL.cgGLSetTextureParameter(parameter.handle, texture)
+
+def cgGLSetManageTextureParameters(CGcontext context, int flag):
+	_cgGL.cgGLSetManageTextureParameters(context.handle, flag)
+
 
 # Effects
 
@@ -175,3 +181,9 @@ def cgSetParameterValuefc(CGparameter parameter, int nelements,
 def cgSetParameterValuecc(CGparameter parameter, int nelements,
 		numpy.ndarray[numpy.float64_t, ndim=1] v):
 	_cg.cgSetParameterValuedc(parameter.handle, nelements, <double*>v.data)
+
+
+# Samplers
+
+def cgSetSamplerState(CGparameter parameter):
+	_cg.cgSetSamplerState(parameter.handle)

@@ -28,10 +28,7 @@ class Parameter(ReprMixin):
 	Effect or program parameter base class.
 	'''
 
-	repr_members = ('name', 'semantic', 'type', 'base_type', 'row_count', 'column_count',)
-
-	def __init__(self, bridge, cgparameter, name, semantic,
-			type, base_type, row_count, column_count):
+	def __init__(self, bridge, cgparameter, name, semantic, type, base_type):
 		self._bridge = bridge
 		self._cgparameter = cgparameter
 
@@ -44,14 +41,29 @@ class Parameter(ReprMixin):
 		#: Gets base type of the parameter (string)
 		self.base_type = base_type
 
+		#: Gets parameter semantic (string)
+		self.semantic = semantic
+
+		self.repr_members = ('name', 'semantic', 'type', 'base_type')
+	
+	def set_value(self, value):
+		raise NotImplementedError()
+
+
+class NumericParameter(Parameter):
+	'''
+	Represents numeric parameter (float, array of ints, matrix of doubles etc.).
+	'''
+	def __init__(self, row_count, column_count, **kwargs):
+		super(NumericParameter, self).__init__(**kwargs)
+
 		#: Gets parameter row count
 		self.row_count = row_count
 
 		#: Gets parameter column count
 		self.column_count = column_count
-
-		#: Gets parameter semantic (string)
-		self.semantic = semantic
+		
+		self.repr_members += ('row_count', 'column_count',)
 
 	def set_value(self, value):
 		'''
@@ -77,6 +89,19 @@ class Parameter(ReprMixin):
 			numpy_type = cg_type_to_numpy_type[self.base_type]
 			array_value = array(value, dtype=numpy_type)
 			self.set_value(array_value)
+
+class SamplerParameter(Parameter):
+	'''
+	Represents sampler* parameter.
+	'''
+	def set_value(self, value):
+		'''
+		Sets sampler value.
+
+		:param uint value: OpenGL texture object
+		'''
+		self._bridge.cgGLSetTextureParameter(self._cgparameter, value)
+		self._bridge.cgSetSamplerState(self._cgparameter)
 
 
 class ParameterCollection(tuple):
@@ -105,31 +130,32 @@ class EffectParameterFactory(object):
 		self._bridge = bridge
 
 	def create_parameter_by_cgparameter(self, cgparameter):
-		name = self._bridge.cgGetParameterName(cgparameter)
 		type = self._bridge.cgGetParameterType(cgparameter)
 		base_type = self._bridge.cgGetParameterBaseType(cgparameter)
 
-		type_string = self._bridge.cgGetTypeString(type)
-		base_type_string = self._bridge.cgGetTypeString(base_type)
+		base_type_string=self._bridge.cgGetTypeString(base_type)
+		type_string=self._bridge.cgGetTypeString(type)
 
-		if type_string in ('struct',) or \
-				type_string.startswith('sampler') or \
-				base_type_string not in cg_type_to_numpy_type:
-			raise Error('Unsupported parameter type', base_type_string, type_string)
-
-		row_count = self._bridge.cgGetParameterRows(cgparameter)
-		column_count = self._bridge.cgGetParameterColumns(cgparameter)
-
-		semantic = self._bridge.cgGetParameterSemantic(cgparameter)
-
-		return Parameter(bridge=self._bridge,
+		
+		kwargs = dict(
+			bridge=self._bridge,
 			cgparameter=cgparameter,
-			name=name,
+			name=self._bridge.cgGetParameterName(cgparameter),
 			type=type_string,
-			semantic=semantic,
 			base_type=base_type_string,
-			row_count=row_count,
-			column_count=column_count)
+			semantic = self._bridge.cgGetParameterSemantic(cgparameter),
+		)
+
+		if type_string.startswith('sampler'):
+			return SamplerParameter(**kwargs)
+		elif base_type_string in cg_type_to_numpy_type:
+			kwargs.update(dict(
+				row_count=self._bridge.cgGetParameterRows(cgparameter),
+				column_count=self._bridge.cgGetParameterColumns(cgparameter),
+			))
+			return NumericParameter(**kwargs)
+		else:
+			raise Error('Unsupported parameter type', base_type_string, type_string)
 
 	def get_by_cgeffect(self, cgeffect):
 		cgparameters = gather(

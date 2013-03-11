@@ -1,24 +1,29 @@
 float time: TIME;
-float4 f4;
-double d;
-int i;
-bool b;
-half h;
-float4x4 fm44;
-float4x4[3] fm44x3;
+sampler2D texture = sampler_state {
+	minFilter = Linear;
+	magFilter = Linear;
+};
 
 struct app2vp {
 	float4 position: POSITION;
+	float2 texcoord: TEXCOORD0;
 };
 
 struct vp2fp {
 	float4 position: POSITION;
+	float4 color: COLOR;
+	float2 texcoord: TEXCOORD0;
+};
+
+struct fp2screen {
 	float4 color: COLOR;
 };
 
 vp2fp vp(app2vp input) {
 	vp2fp output;
 	output.position = input.position;
+	output.texcoord = input.texcoord;
+
 	output.color = float4(
 			1.0 * abs(sin(time * 70)),
 			1.0 * abs(sin(time * 80)),
@@ -28,8 +33,15 @@ vp2fp vp(app2vp input) {
 	return output;
 };
 
+fp2screen fp(vp2fp input) {
+	fp2screen output;
+	output.color = input.color * (float4(0.1, 0.1, 0.1, 1.0) + tex2D(texture, input.texcoord));
+	return output;
+};
+
 technique t0 {
 	pass p0 {
 		VertexProgram = compile arbvp1 vp();
+		FragmentProgram = compile arbfp1 fp();
 	}
 }

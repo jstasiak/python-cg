@@ -31,4 +31,5 @@ class ContextFactory(object):
 	def create(self):
 		cgcontext = self._bridge.cgCreateContext()
 		self._bridge.cgGLRegisterStates(cgcontext)
+		self._bridge.cgGLSetManageTextureParameters(cgcontext, True)
 		return Context(cgcontext, self._bridge)
