@@ -56,6 +56,9 @@ def cgGLSetTextureParameter(CGparameter parameter, unsigned int texture):
 def cgGLSetManageTextureParameters(CGcontext context, int flag):
 	_cgGL.cgGLSetManageTextureParameters(context.handle, flag)
 
+def cgGLGetManageTextureParameters(CGcontext context):
+	return bool(_cgGL.cgGLGetManageTextureParameters(context.handle))
+
 
 # Effects
 

@@ -5,7 +5,7 @@ from cg import bridge
 from cg.context import ContextFactory
 from cg.utils import Disposable
 
-class CG(Disposable):
+class Cg(Disposable):
     '''
     Gateway to using python-cg.
     

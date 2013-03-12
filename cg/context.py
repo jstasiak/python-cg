@@ -6,7 +6,7 @@ from cg.utils import Disposable
 
 class Context(Disposable):
 	'''
-	Wraps CG Toolkit Context.
+	Wraps Cg context.
 	'''
 
 	def __init__(self, cgcontext, bridge):
@@ -23,6 +23,26 @@ class Context(Disposable):
 	def get_last_listing(self):
 		return self._bridge.cgGetLastListing(self._cgcontext)
 
+	@property
+	def manage_texture_parameters(self):
+		'''
+		Gets and sets whether Cg is supposed to automatically manage (enable/disable) texture
+		parameters (bool).
+		'''
+		return self._bridge.cgGLGetManageTextureParameters(self._cgcontext)
+
+	@manage_texture_parameters.setter
+	def manage_texture_parameters(self, value):
+		self._bridge.cgGLSetManageTextureParameters(self._cgcontext, value)
+
+	def register_states(self):
+		'''
+		Register graphics API states for use in effects.
+
+		.. note:: This method is idempotent.
+		'''
+		self._bridge.cgGLRegisterStates(self._cgcontext)
+
 
 class ContextFactory(object):
 	def __init__(self, bridge):
@@ -30,6 +50,4 @@ class ContextFactory(object):
 
 	def create(self):
 		cgcontext = self._bridge.cgCreateContext()
-		self._bridge.cgGLRegisterStates(cgcontext)
-		self._bridge.cgGLSetManageTextureParameters(cgcontext, True)
 		return Context(cgcontext, self._bridge)

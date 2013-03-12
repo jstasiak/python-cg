@@ -10,16 +10,18 @@ import sfml
 from numpy import array, float32, uint8
 from OpenGL import GL as gl
 
-from cg import CG
+from cg import Cg
 
 ROOT = abspath(dirname(__file__))
 
 class App(object):
 	def run(self):
 		self.window = self.create_window()
-		cg_context = self.create_cg_context()
+		context = self.create_cg_context()
+		context.register_states()
+		context.manage_texture_parameters = True
 		
-		effect = cg_context.create_effect_from_file(join(ROOT, 'effect.cgfx'))
+		effect = context.create_effect_from_file(join(ROOT, 'effect.cgfx'))
 		self.load_texture(join(ROOT, 'texture.png'),
 			effect.parameters.by_name['texture'])
 		self.time_parameter = effect.parameters.by_name['time']
@@ -41,7 +43,7 @@ class App(object):
 			self.render()
 			self.window.display()
 
-		cg_context.dispose()
+		context.dispose()
 		self.cg.dispose()
 		self.window.close()
 
@@ -89,7 +91,7 @@ class App(object):
 		return window
 
 	def create_cg_context(self):
-		self.cg = CG()
+		self.cg = Cg()
 		return self.cg.create_context()
 
 	def process_events(self):
