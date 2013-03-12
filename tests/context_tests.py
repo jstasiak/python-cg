@@ -16,16 +16,6 @@ class TestContextFactory(object):
 		context = cf.create()
 		eq_(context._cgcontext, handle)
 
-	def test_opengl_states_are_set_on_context_creation(self):
-		handle = 'x'
-		bridge = Mock()
-		bridge.cgCreateContext.return_value = handle
-
-		cf = ContextFactory(bridge)
-		context = cf.create()
-
-		bridge.cgGLRegisterStates.assert_called_once_with(handle)
-
 class TestContext(object):
 	def test_context_disposes_of_its_resources(self):
 		handle = 234
