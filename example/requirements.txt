@@ -1,3 +1,4 @@
 PyOpenGL
 git+git://github.com/jstasiak/pysfml-cython.git@11a529e29af8e785ff347eb89861a4ef47454c86
 git+git://github.com/sloonz/pil-py3k.git
+git+git://github.com/adamlwgriffiths/Pyrr.git@d4978c76bdadd77fa263e0471ee13840c27f000d
