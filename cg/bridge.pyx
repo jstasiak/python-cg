@@ -181,9 +181,23 @@ def cgSetParameterValuefc(CGparameter parameter, int nelements,
 		numpy.ndarray[numpy.float32_t, ndim=1] v):
 	_cg.cgSetParameterValuefc(parameter.handle, nelements, <float*>v.data)
 
-def cgSetParameterValuecc(CGparameter parameter, int nelements,
+def cgSetParameterValuedc(CGparameter parameter, int nelements,
 		numpy.ndarray[numpy.float64_t, ndim=1] v):
 	_cg.cgSetParameterValuedc(parameter.handle, nelements, <double*>v.data)
+
+
+def cgSetParameterValueir(CGparameter parameter, int nelements,
+		numpy.ndarray[numpy.int32_t, ndim=1] v):
+	_cg.cgSetParameterValueir(parameter.handle, nelements, <int*>v.data)
+
+def cgSetParameterValuefr(CGparameter parameter, int nelements,
+		numpy.ndarray[numpy.float32_t, ndim=1] v):
+	_cg.cgSetParameterValuefr(parameter.handle, nelements, <float*>v.data)
+
+def cgSetParameterValuedr(CGparameter parameter, int nelements,
+		numpy.ndarray[numpy.float64_t, ndim=1] v):
+	_cg.cgSetParameterValuedr(parameter.handle, nelements, <double*>v.data)
+
 
 
 # Samplers
