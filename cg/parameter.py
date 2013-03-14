@@ -69,17 +69,23 @@ class NumericParameter(Parameter):
 		'''
 		Sets the parameter value. Value can be one of the following::
 
-		* one dimenstional py:class:`numpy.ndarray` of `float32`, `float64` or `int32`
+		* py:class:`numpy.ndarray` of `float32`, `float64` or `int32`. If the array
+			is multidimensional, it will be reshaped to one dimension.
 		* iterable of elements of type matching parameter type
 		* scalar value of type matching parameter type
 
 		.. note:: Setting parameter value is a slow operation and should be performed as
 			rarely as possible.
+
+		.. note:: Matrices will be filled with data in row-major order.
 		'''
 
 		if isinstance(value, ndarray):
+			if value.ndim > 1:
+				value = value.reshape(-1)
+
 			letter = numpy_type_to_letter[value.dtype]
-			method_name = 'cgSetParameterValue%sc' % (letter,)
+			method_name = 'cgSetParameterValue%sr' % (letter,)
 			method = getattr(self._bridge, method_name)
 			method(self._cgparameter, len(value), value)
 		else:
