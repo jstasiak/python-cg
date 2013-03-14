@@ -2,6 +2,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from os.path import abspath, dirname, join
+from math import pi, sin, tan
 from time import clock
 
 import Image
@@ -9,6 +10,7 @@ import sfml
 
 from numpy import array, float32, uint8
 from OpenGL import GL as gl
+from pyrr import matrix44
 
 from cg import Cg
 
@@ -22,9 +24,11 @@ class App(object):
 		context.manage_texture_parameters = True
 		
 		effect = context.create_effect_from_file(join(ROOT, 'effect.cgfx'))
+
 		self.load_texture(join(ROOT, 'texture.png'),
 			effect.parameters.by_name['texture'])
 		self.time_parameter = effect.parameters.by_name['time']
+		self.model_view_proj = effect.parameters.by_name['modelViewProj']
 
 		valid_techniques = [t for t in effect.techniques if t.valid]
 		assert valid_techniques
@@ -61,7 +65,8 @@ class App(object):
 			image.size[0], image.size[1], 0, gl.GL_RGB, gl.GL_UNSIGNED_BYTE, data)
 
 	def render(self):
-		self.time_parameter.set_value(clock())
+		t = clock()
+		self.time_parameter.set_value(t)
 
 		data = (
 			((-0.5, -0.5, 0), (0.0, 0.0)),
@@ -69,11 +74,22 @@ class App(object):
 			((0, 0.5, 0), (0.5, 1.0)),
 		)
 
+		proj = matrix44.create_perspective_projection_matrix(
+			90, 4.0 / 3.0, 0.01, 100.0)
+
+		mv = matrix44.multiply(
+			matrix44.create_from_translation((sin(t * 10), 0.0, -3.0 * abs(sin(t * 30)))),
+			matrix44.create_from_z_rotation(t * 50),
+		)
+ 
+		mvp = matrix44.multiply(mv, proj)
+
+		self.model_view_proj.set_value(mvp)
+
 		for pass_ in self.technique.passes:
 			pass_.begin()
 
-			gl.glClear(gl.GL_COLOR_BUFFER_BIT)
-			gl.glLoadIdentity()
+			gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
 
 			gl.glBegin(gl.GL_TRIANGLES)
 

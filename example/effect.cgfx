@@ -1,8 +1,11 @@
 float time: TIME;
+
 sampler2D texture = sampler_state {
 	minFilter = Linear;
 	magFilter = Linear;
 };
+
+float4x4 modelViewProj;
 
 struct app2vp {
 	float4 position: POSITION;
@@ -21,7 +24,7 @@ struct fp2screen {
 
 vp2fp vp(app2vp input) {
 	vp2fp output;
-	output.position = input.position;
+	output.position = mul(input.position, modelViewProj);
 	output.texcoord = input.texcoord;
 
 	output.color = float4(
