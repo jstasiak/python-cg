@@ -67,10 +67,11 @@ class NumericParameter(Parameter):
 
 	def set_value(self, value):
 		'''
-		Sets the parameter value. Value can be one of the following::
 
-		* py:class:`numpy.ndarray` of `float32`, `float64` or `int32`. If the array
-			is multidimensional, it will be reshaped to one dimension.
+		Sets the parameter value. Value can be one of the following:
+
+		* :py:class:`numpy.ndarray` of `float32`, `float64` or `int32`. If the array
+		  is multidimensional, it will be reshaped to one dimension.
 		* iterable of elements of type matching parameter type
 		* scalar value of type matching parameter type
 
