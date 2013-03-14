@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from cg import bridge
 from cg.context import ContextFactory
 from cg.utils import Disposable
 
@@ -16,7 +15,8 @@ class Cg(Disposable):
         instances, although possible, can result in some unexpected behaviour.
     '''
     def __init__(self, context_factory=None):
-        self._context_factory = context_factory or ContextFactory(bridge)
+        import cg.bridge
+        self._context_factory = context_factory or ContextFactory(bridge=cg.bridge)
 
     def create_context(self):
         '''

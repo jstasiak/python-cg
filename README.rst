@@ -53,9 +53,9 @@ Pregenerated documentation can be found at http://stasiak.at/python-cg.
 
 You can also build documentation all by yourself by calling::
 
-   python builddocs.py
+   sphinx-build -b html docs docs/build/html
 
-Generated HTML files are placed in ``gh-pages/html`` directory.
+Generated HTML files are placed in ``docs/build/html/`` directory.
 
 
 Building
