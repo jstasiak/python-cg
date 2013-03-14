@@ -8,13 +8,12 @@ python-cg
 What is python-cg?
 ------------------
 
-*python-cg* is a Python wrapper for `NVidia Cg Toolkit <https://developer.nvidia.com/cg-toolkit>`_ runtime. I've started it because I like Python, I like NVidia CG and I want to to do some
-computer game/3d graphics prototyping and research. Also I still find C++ counterproductive
-as far as my needs are concerned and I don't want to waste my time doing boring stuff.
-Programming in Python is fun.
+*python-cg* is a Python wrapper for
+`NVidia Cg Toolkit <https://developer.nvidia.com/cg-toolkit>`_ runtime. I've started it because I like Python, I like NVidia CG and I want to to do some computer game/3d graphicsprototyping and research. Also I still find C++ counterproductive as far as my needs are concerned and I don't want to waste my time doing boring stuff. Programming in Python is fun.
 
-I know about some projects that were meant to bring CG to Python but as far as I know they're
-history now.
+I know about some projects that were meant to bring CG to Python but as far as I know they're history now.
+
+Project is hostead at GitHub: https://github.com/jstasiak/python-cg.
 
 What's the state?
 -----------------
@@ -49,7 +48,7 @@ To build documentation/run tests you also need:
 Documentation
 -------------
 
-Pregenerated documentation can be found at http://stasiak.at/python-cg.
+Pregenerated documentation can be found at https://python-cg.readthedocs.org/en/latest/.
 
 You can also build documentation all by yourself by calling::
 
