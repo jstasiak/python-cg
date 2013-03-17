@@ -77,6 +77,10 @@ def cgCreateEffectFromFile(CGcontext context, unicode filename):
 	cdef bytes filename_bytes = filename.encode('utf-8')
 	return _create_effect(_cg.cgCreateEffectFromFile(context.handle, filename_bytes, NULL))
 
+def cgCreateEffect(CGcontext context, unicode source):
+	cdef bytes source_bytes = source.encode('utf-8')
+	return _create_effect(_cg.cgCreateEffect(context.handle, source_bytes, NULL))
+
 def cgDestroyEffect(CGeffect effect):
 	_cg.cgDestroyEffect(effect.handle)
 

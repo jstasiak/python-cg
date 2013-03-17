@@ -17,6 +17,14 @@ cg Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`errors` Module
+--------------------
+
+.. automodule:: cg.errors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`parameter` Module
 -----------------------
 

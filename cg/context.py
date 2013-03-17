@@ -17,7 +17,23 @@ class Context(Disposable):
 		self._bridge.cgDestroyContext(self._cgcontext)
 
 	def create_effect_from_file(self, filename):
+		'''
+		Loads effect source from file and creates effect using it.
+
+		:param string filename: file containing effect source.
+		:rtype: :py:class:`cg.effect.effect.Effect`
+		'''
 		cgeffect = self._bridge.cgCreateEffectFromFile(self._cgcontext, filename)
+		return Effect(cgeffect, self._bridge)
+
+	def create_effect(self, source):
+		'''
+		Creates effect from source.
+
+		:param string source: effect source
+		:rtype: :py:class:`cg.effect.effect.Effect`
+		'''
+		cgeffect = self._bridge.cgCreateEffect(self._cgcontext, source)
 		return Effect(cgeffect, self._bridge)
 
 	def get_last_listing(self):
