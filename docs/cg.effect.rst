@@ -9,14 +9,6 @@ effect Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`effect` Module
---------------------
-
-.. automodule:: cg.effect.effect
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 :mod:`pass_` Module
 -------------------
 

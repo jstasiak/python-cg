@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from cg.effect.effect import Effect
+from cg.effect import Effect
 from cg.utils import Disposable
 
 class Context(Disposable):
@@ -21,7 +21,7 @@ class Context(Disposable):
 		Loads effect source from file and creates effect using it.
 
 		:param string filename: file containing effect source.
-		:rtype: :py:class:`cg.effect.effect.Effect`
+		:rtype: :py:class:`cg.effect.Effect`
 		'''
 		cgeffect = self._bridge.cgCreateEffectFromFile(self._cgcontext, filename)
 		return Effect(cgeffect, self._bridge)
@@ -31,7 +31,7 @@ class Context(Disposable):
 		Creates effect from source.
 
 		:param string source: effect source
-		:rtype: :py:class:`cg.effect.effect.Effect`
+		:rtype: :py:class:`cg.effect.Effect`
 		'''
 		cgeffect = self._bridge.cgCreateEffect(self._cgcontext, source)
 		return Effect(cgeffect, self._bridge)
