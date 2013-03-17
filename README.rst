@@ -18,7 +18,25 @@ Project is hostead at GitHub: https://github.com/jstasiak/python-cg.
 What's the state?
 -----------------
 
-The project is in very early development stage.
+The project is in very early development stage. Overview of what's supported right now:
+
+* Cg contexts
+
+  * creating
+  * destroying
+
+* CgFX effects
+
+  * creating from file
+  * creating directly from source code
+
+* accessing effects` techniques and their passes
+* accessing effect parameters with their names, semantics and parameter-specific metadata (rows, columns etc.)
+* setting sampler parameters and most of numerical parameters
+
+What doesn't work at the moment and there's no plan to implement it:
+
+* everything that's left (well, until I decide I need some of it or someone else does that)
 
 Requirements
 ------------
@@ -63,6 +81,12 @@ Building
 To build the project in place, run::
 
    python setup.py build_ext --inplace
+
+Important information
+---------------------
+
+* This project works with OpenGL and OpenGL only
+* It uses row-major matrices by default, just like numpy does
 
 Quickstart
 ----------
