@@ -4,16 +4,22 @@ from __future__ import absolute_import
 
 import platform
 
-try:
-	from setuptools import setup
-except ImportError:
-	from distutils.core import setup
+from setuptools import setup
 
 from distutils.extension import Extension
 from os import environ
 
 import numpy
-from Cython.Distutils import build_ext
+
+cmdclass = {}
+
+try:
+	from Cython.Distutils import build_ext
+	use_cython = True
+	cmdclass['build_ext'] = build_ext
+except ImportError:
+	use_cython = False
+
 
 if platform.system() == 'Darwin':
 	environ['LDFLAGS']='-framework Cg'
@@ -23,8 +29,8 @@ else:
 	
 extensions = [
 	Extension(
-		"cg.bridge",
-		["cg/bridge.pyx"],
+		'cg.bridge',
+		['cg/bridge.' + 'pyx' if use_cython else 'c'],
 		libraries=libraries,
 		include_dirs=['cg'],
 	)
@@ -37,10 +43,10 @@ setup(
 	author='Jakub Stasiak',
 	author_email='jakub@stasiak.at',
 	packages=['cg'],
-	cmdclass={'build_ext': build_ext},
+	cmdclass=cmdclass,
 	ext_modules=extensions,
-	requires=[
-		'cython (>= 0.18)',
+	install_requires=[
+		'numpy',
 	],
 	include_dirs=[numpy.get_include()]
 )
