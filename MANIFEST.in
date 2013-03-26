@@ -1,1 +1,1 @@
-recursive-include cg *.c
+recursive-include cg *.c *.h
