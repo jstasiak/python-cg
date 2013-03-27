@@ -9,7 +9,11 @@ from setuptools import setup
 from distutils.extension import Extension
 from os import environ
 
-import numpy
+try:
+	import numpy
+	include_dirs = [numpy.get_include()]
+except ImportError:
+	include_dirs = []
 
 cmdclass = {}
 
@@ -46,7 +50,8 @@ setup(
 	cmdclass=cmdclass,
 	ext_modules=extensions,
 	install_requires=[
+		'cython',
 		'numpy',
 	],
-	include_dirs=[numpy.get_include()]
+	include_dirs=include_dirs,
 )
