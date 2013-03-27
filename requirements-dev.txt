@@ -1,6 +1,6 @@
 coverage
 cython>=0.18
 mock>=1.0
-nose>=1.2
+nose==1.2.1
 numpy
 https://bitbucket.org/birkenfeld/sphinx/get/default.tar.gz
