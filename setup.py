@@ -1,13 +1,12 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
+# -*- coding: utf-8 -*
+from __future__ import absolute_import, division, print_function
 
 import platform
 
-from setuptools import setup
+from setuptools import Extension, setup
 
-from distutils.extension import Extension
-from os import environ
+from os import environ, getcwd
 
 try:
 	import numpy
@@ -24,7 +23,6 @@ try:
 except ImportError:
 	use_cython = False
 
-
 if platform.system() == 'Darwin':
 	environ['LDFLAGS']='-framework Cg'
 	libraries=[]
@@ -34,7 +32,7 @@ else:
 extensions = [
 	Extension(
 		'cg.bridge',
-		['cg/bridge.' + 'pyx' if use_cython else 'c'],
+		['cg/bridge.' + ('pyx' if use_cython else 'c')],
 		libraries=libraries,
 		include_dirs=['cg'],
 	)
@@ -42,15 +40,14 @@ extensions = [
 
 setup(
 	name='python-cg',
-	version='0.1',
+	version='0.1.2',
 	description='Python wrapper for NVidia Cg Toolkit',
 	author='Jakub Stasiak',
 	author_email='jakub@stasiak.at',
-	packages=['cg'],
+	packages=['cg', 'cg.effect'],
 	cmdclass=cmdclass,
 	ext_modules=extensions,
 	install_requires=[
-		'cython',
 		'numpy',
 	],
 	include_dirs=include_dirs,
