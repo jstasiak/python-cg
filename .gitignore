@@ -42,4 +42,5 @@ docs/_build
 # virtualenv
 env/
 
-.tox/
+# Generated documentation
+gh-pages/
