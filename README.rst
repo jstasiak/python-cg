@@ -171,4 +171,4 @@ License
 
 © 2013, Jakub Stasiak
 
-This project is licensed under BSD License, see `LICENSE <LICENSE>`_ file for details.
+This project is licensed under MIT License, see `LICENSE <LICENSE>`_ file for details.
