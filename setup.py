@@ -40,10 +40,13 @@ extensions = [
 
 setup(
 	name='python-cg',
-	version='0.1.2',
+	version='0.1.3',
 	description='Python wrapper for NVidia Cg Toolkit',
 	author='Jakub Stasiak',
 	author_email='jakub@stasiak.at',
+	url='https://github.com/jstasiak/python-cg',
+	platforms=['unix', 'linux', 'os x'],
+	license='MIT',
 	packages=['cg', 'cg.effect'],
 	cmdclass=cmdclass,
 	ext_modules=extensions,
@@ -51,4 +54,19 @@ setup(
 		'numpy',
 	],
 	include_dirs=include_dirs,
+	classifiers=[
+		'Development Status :: 3 - Alpha',
+		'Intended Audience :: Developers',
+		'License :: OSI Approved :: MIT License',
+		'Operating System :: MacOS :: MacOS X',
+		'Operating System :: POSIX :: Linux',
+		'Programming Language :: Python',
+		'Programming Language :: Python :: 2.6',
+		'Programming Language :: Python :: 2.7',
+		'Programming Language :: Python :: 3.2',
+		'Programming Language :: Python :: 3.3',
+		'Programming Language :: Python :: Implementation :: CPython',
+		'Topic :: Multimedia :: Graphics :: 3D Rendering',
+		'Topic :: Software Development :: Libraries :: Python Modules',
+	]
 )
