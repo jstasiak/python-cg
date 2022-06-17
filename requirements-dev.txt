@@ -2,5 +2,5 @@ coverage==3.6
 cython==0.18
 mock==1.0.1
 nose==1.2.1
-numpy==1.7.0
+numpy==1.21.0
 sphinx==1.2b1
